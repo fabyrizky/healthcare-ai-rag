@@ -1,308 +1,62 @@
-"""
-Healthcare AI Configuration
-Qwen 2.5 VL 32B Instruct Integration
-"""
+[global]
+developmentMode = false
+showWarningOnDirectExecution = false
 
-import os
-from typing import Dict, Any
-import streamlit as st
+[server]
+runOnSave = true
+port = 8501
+enableCORS = false
+enableXsrfProtection = false
+maxUploadSize = 200
+maxMessageSize = 200
+enableWebsocketCompression = true
+allowRunOnSave = true
 
-# =============================================================================
-# QWEN 2.5 VL API CONFIGURATION
-# =============================================================================
+[browser]
+gatherUsageStats = false
+serverAddress = "0.0.0.0"
+serverPort = 8501
 
-class QwenConfig:
-    """Configuration for Qwen 2.5 VL 32B Instruct"""
-    
-    # API Configuration
-    API_KEY = "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"
-    BASE_URL = "https://openrouter.ai/api/v1"
-    MODEL_NAME = "qwen/qwen-2.5-vl-32b-instruct"
-    
-    # Model Parameters
-    MAX_TOKENS = 4096
-    TEMPERATURE = 0.7
-    TOP_P = 0.9
-    FREQUENCY_PENALTY = 0.0
-    PRESENCE_PENALTY = 0.0
-    
-    # Vision Parameters
-    MAX_IMAGE_SIZE = 1024  # pixels
-    SUPPORTED_FORMATS = ["jpg", "jpeg", "png", "webp", "gif"]
-    MAX_IMAGES_PER_REQUEST = 5
-    
-    # Healthcare Specific Settings
-    MEDICAL_CONTEXT_WINDOW = 8192
-    HEALTHCARE_SAFETY_FILTER = True
-    PHI_PROTECTION = True  # Protected Health Information
-    
-    @classmethod
-    def get_headers(cls) -> Dict[str, str]:
-        """Get API headers"""
-        return {
-            "Authorization": f"Bearer {cls.API_KEY}",
-            "Content-Type": "application/json",
-            "HTTP-Referer": "https://healthcare-ai.local",
-            "X-Title": "Healthcare AI Automation"
-        }
-    
-    @classmethod
-    def get_model_config(cls) -> Dict[str, Any]:
-        """Get model configuration"""
-        return {
-            "model": cls.MODEL_NAME,
-            "max_tokens": cls.MAX_TOKENS,
-            "temperature": cls.TEMPERATURE,
-            "top_p": cls.TOP_P,
-            "frequency_penalty": cls.FREQUENCY_PENALTY,
-            "presence_penalty": cls.PRESENCE_PENALTY,
-            "stream": True
-        }
+[theme]
+# Enhanced Healthcare Theme
+primaryColor = "
+#2E86AB"
+backgroundColor = "
+#FFFFFF"
+secondaryBackgroundColor = "
+#F9FAFB"
+textColor = "
+#1F2937"
+font = "sans serif"
 
-# =============================================================================
-# APPLICATION CONFIGURATION
-# =============================================================================
+[client]
+caching = true
+displayEnabled = true
+showErrorDetails = false
+toolbarMode = "minimal"
 
-class AppConfig:
-    """Main application configuration"""
-    
-    # App Settings
-    APP_NAME = "Healthcare AI Automation System"
-    APP_VERSION = "2.1.0"
-    DEBUG_MODE = False
-    
-    # Database Configuration
-    DATABASE_URL = "sqlite:///healthcare_ai.db"
-    BACKUP_INTERVAL_HOURS = 24
-    
-    # Security Settings
-    SECRET_KEY = "healthcare_ai_secret_key_2024"
-    SESSION_TIMEOUT_MINUTES = 60
-    MAX_LOGIN_ATTEMPTS = 3
-    
-    # File Upload Settings
-    MAX_FILE_SIZE_MB = 50
-    ALLOWED_FILE_TYPES = [
-        "csv", "xlsx", "xls", "pdf", "docx", "txt",
-        "jpg", "jpeg", "png", "webp", "gif", "dicom"
-    ]
-    
-    # Healthcare Data Settings
-    PATIENT_ID_PREFIX = "PAT"
-    APPOINTMENT_ID_PREFIX = "APT"
-    RECORD_ID_PREFIX = "REC"
-    
-    # AI Features
-    ENABLE_VISION_AI = True
-    ENABLE_CHAT_AI = True
-    ENABLE_ANALYTICS_AI = True
-    ENABLE_PREDICTIVE_AI = True
-    
-    # Logging Configuration
-    LOG_LEVEL = "INFO"
-    LOG_FILE = "logs/healthcare_ai.log"
-    MAX_LOG_SIZE_MB = 100
+[runner]
+magicEnabled = true
+installTracer = false
+fixMatplotlib = true
+postScriptGC = true
+fastReruns = true
+enforceSerializableSessionState = false
 
-# =============================================================================
-# HEALTHCARE SPECIFIC CONFIGURATION
-# =============================================================================
+[logger]
+level = "info"
+messageFormat = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 
-class HealthcareConfig:
-    """Healthcare domain specific configuration"""
-    
-    # Medical Specialties
-    MEDICAL_SPECIALTIES = [
-        "Cardiology", "Neurology", "Orthopedics", "Pediatrics",
-        "Gynecology", "Dermatology", "Psychiatry", "Emergency Medicine",
-        "Radiology", "Pathology", "Surgery", "Internal Medicine"
-    ]
-    
-    # Appointment Types
-    APPOINTMENT_TYPES = [
-        "General Consultation", "Follow-up", "Emergency",
-        "Specialist Consultation", "Diagnostic Test", "Surgery",
-        "Vaccination", "Health Checkup", "Telemedicine"
-    ]
-    
-    # Priority Levels
-    PRIORITY_LEVELS = ["Low", "Medium", "High", "Critical", "Emergency"]
-    
-    # Medical Record Categories
-    RECORD_CATEGORIES = [
-        "Diagnosis", "Treatment", "Medication", "Lab Results",
-        "Imaging", "Surgery", "Therapy", "Vaccination", "Allergy"
-    ]
-    
-    # Vital Signs Normal Ranges
-    VITAL_SIGNS_RANGES = {
-        "blood_pressure_systolic": {"min": 90, "max": 140, "unit": "mmHg"},
-        "blood_pressure_diastolic": {"min": 60, "max": 90, "unit": "mmHg"},
-        "heart_rate": {"min": 60, "max": 100, "unit": "bpm"},
-        "temperature": {"min": 36.1, "max": 37.2, "unit": "°C"},
-        "respiratory_rate": {"min": 12, "max": 20, "unit": "/min"},
-        "oxygen_saturation": {"min": 95, "max": 100, "unit": "%"}
-    }
-    
-    # Emergency Keywords for AI Detection
-    EMERGENCY_KEYWORDS = [
-        "chest pain", "difficulty breathing", "severe bleeding",
-        "unconscious", "stroke", "heart attack", "seizure",
-        "severe trauma", "poisoning", "allergic reaction"
-    ]
+# Performance optimizations
+[deprecation]
+showfileUploaderEncoding = false
+showPyplotGlobalUse = false
 
-# =============================================================================
-# AI PROMPTS AND TEMPLATES
-# =============================================================================
+# Security settings
+[mapbox]
+token = ""
 
-class AIPrompts:
-    """AI prompt templates for healthcare use cases"""
-    
-    MEDICAL_ANALYSIS_PROMPT = """
-    You are a healthcare AI assistant with expertise in medical analysis.
-    Patient Information: {patient_info}
-    Medical Query: {query}
-    
-    Please provide:
-    1. Analysis of the medical information
-    2. Potential diagnoses or conditions to consider
-    3. Recommended next steps or tests
-    4. Important warnings or red flags
-    
-    Note: This is for informational purposes only and should not replace professional medical advice.
-    """
-    
-    SYMPTOM_CHECKER_PROMPT = """
-    As a medical AI assistant, analyze these symptoms:
-    Symptoms: {symptoms}
-    Patient Age: {age}
-    Patient Gender: {gender}
-    Medical History: {history}
-    
-    Provide:
-    1. Possible conditions (ranked by likelihood)
-    2. Urgency level (1-5 scale)
-    3. Recommended actions
-    4. When to seek immediate care
-    
-    Always recommend consulting healthcare professionals for proper diagnosis.
-    """
-    
-    MEDICAL_IMAGE_ANALYSIS_PROMPT = """
-    Analyze this medical image with the following context:
-    Image Type: {image_type}
-    Patient Info: {patient_info}
-    Clinical Question: {clinical_question}
-    
-    Please provide:
-    1. Image quality assessment
-    2. Visible findings or abnormalities
-    3. Differential diagnoses
-    4. Recommendations for further imaging or tests
-    
-    Disclaimer: AI analysis for reference only, requires professional radiologist review.
-    """
-    
-    TREATMENT_PLAN_PROMPT = """
-    Create a treatment plan based on:
-    Diagnosis: {diagnosis}
-    Patient Profile: {patient_profile}
-    Current Medications: {medications}
-    Allergies: {allergies}
-    
-    Include:
-    1. Treatment objectives
-    2. Medication recommendations
-    3. Lifestyle modifications
-    4. Follow-up schedule
-    5. Monitoring parameters
-    
-    Note: Treatment plan requires physician approval and customization.
-    """
-
-# =============================================================================
-# ENVIRONMENT SETUP
-# =============================================================================
-
-def setup_environment():
-    """Setup environment variables and configuration"""
-    
-    # Set environment variables
-    os.environ["QWEN_API_KEY"] = QwenConfig.API_KEY
-    os.environ["HEALTHCARE_AI_DEBUG"] = str(AppConfig.DEBUG_MODE)
-    
-    # Create necessary directories
-    directories = ["logs", "data", "uploads", "backups", "exports"]
-    for directory in directories:
-        os.makedirs(directory, exist_ok=True)
-    
-    # Initialize Streamlit session state
-    if 'config_initialized' not in st.session_state:
-        st.session_state.config_initialized = True
-        st.session_state.qwen_config = QwenConfig()
-        st.session_state.app_config = AppConfig()
-        st.session_state.healthcare_config = HealthcareConfig()
-
-def validate_api_key():
-    """Validate Qwen API key"""
-    import requests
-    
-    try:
-        headers = QwenConfig.get_headers()
-        response = requests.get(
-            f"{QwenConfig.BASE_URL}/models",
-            headers=headers,
-            timeout=10
-        )
-        return response.status_code == 200
-    except Exception:
-        return False
-
-# =============================================================================
-# CONFIGURATION VALIDATION
-# =============================================================================
-
-def validate_configuration():
-    """Validate all configuration settings"""
-    
-    errors = []
-    warnings = []
-    
-    # Validate API key
-    if not QwenConfig.API_KEY or QwenConfig.API_KEY.startswith("sk-"):
-        if not validate_api_key():
-            errors.append("Invalid or expired Qwen API key")
-    
-    # Validate file paths
-    required_dirs = ["logs", "data", "uploads"]
-    for directory in required_dirs:
-        if not os.path.exists(directory):
-            warnings.append(f"Directory '{directory}' will be created")
-    
-    # Validate healthcare settings
-    if not HealthcareConfig.MEDICAL_SPECIALTIES:
-        errors.append("Medical specialties list is empty")
-    
-    return {
-        "valid": len(errors) == 0,
-        "errors": errors,
-        "warnings": warnings
-    }
-
-# =============================================================================
-# EXPORT CONFIGURATION
-# =============================================================================
-
-# Make configurations available for import
-__all__ = [
-    "QwenConfig",
-    "AppConfig", 
-    "HealthcareConfig",
-    "AIPrompts",
-    "setup_environment",
-    "validate_api_key",
-    "validate_configuration"
-]
-
-# Auto-setup when imported
-if __name__ != "__main__":
-    setup_environment()
+# UI enhancements
+[ui]
+hideTopBar = false
+hideSidebarNav = false
