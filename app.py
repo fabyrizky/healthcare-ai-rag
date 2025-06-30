@@ -49,8 +49,8 @@ class Config:
     ALLOWED_EXTENSIONS: List[str] = None
     
     # API Configuration
-    OPENROUTER_BASE_URL: str = "https://openrouter.ai/api/v1"
-    DEFAULT_MODEL: str = "anthropic/claude-3-haiku"
+    OPENROUTER_BASE_URL: str = "https://openrouter.ai/"
+    DEFAULT_MODEL: str = "meta/llama-4-maverick:free"
     
     # Available AI Models
     AI_MODELS: Dict[str, str] = None
@@ -64,21 +64,18 @@ class Config:
         
         if self.AI_MODELS is None:
             self.AI_MODELS = {
-                "Claude 3 Haiku": "anthropic/claude-3-haiku",
-                "GPT-3.5 Turbo": "openai/gpt-3.5-turbo",
-                "Qwen 2.5 72B": "qwen/qwen-2.5-72b-instruct",
-                "Mistral 7B": "mistralai/mistral-7b-instruct",
-                "Llama 3.1 8B": "meta-llama/llama-3.1-8b-instruct:free",
-                "Gemma 2 9B": "google/gemma-2-9b-it:free"
+                "Llama 4 Maverick": "meta/llama-4-maverick:free",
+                "Gemma 3 27B": "google/gemma-3-27b:free"
             }
         
         if self.NEWS_SOURCES is None:
             self.NEWS_SOURCES = {
-                "PubMed": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi",
-                "WHO": "https://www.who.int/feeds/entity/csr/don/en/rss.xml",
-                "CDC": "https://tools.cdc.gov/api/v2/resources/media",
-                "Healthcare IT News": "https://www.healthcareitnews.com/news.rss",
-                "Modern Healthcare": "https://www.modernhealthcare.com/rss"
+                "PubMed": "https://eutils.ncbi.nlm.nih.gov/",
+                "WHO": "https://www.who.int/",
+                "ISQua": "https://isqua.org/",
+                "Healthcare IT News": "https://www.healthcareitnews.com/",
+                "Modern Healthcare": "https://www.modernhealthcare.com/",
+                "Kemenkes RI": "https://kemkes.go.id/"
             }
 
 # Enhanced CSS with modern design
