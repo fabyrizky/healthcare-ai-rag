@@ -21,13 +21,11 @@ class HealthConfig:
     AI_MODELS = {
         "primary": {
             "model": "qwen/qwq-32b-preview:free",
-            "key": "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",
             "name": "🧠 Qwen QwQ 32B",
             "description": "Advanced reasoning AI for healthcare analysis"
         },
         "fallback": {
             "model": "qwen/qwen-2.5-vl-72b-instruct:free",
-            "key": "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",
             "name": "🔍 Qwen 2.5 VL 72B",
             "description": "Multimodal AI with visual understanding"
         }
