@@ -15,7 +15,7 @@ warnings.filterwarnings('ignore')
 class HealthConfig:
     APP_TITLE = "🏥 AGENTIC AI FOR HOSPITAL QUALITY SYSTEM"
     APP_VERSION = "8.6.0"
-    OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
+    OPENROUTER_BASE_URL = "https://openrouter.ai/"
     
     # Multiple API Keys for reliability - FIXED
     AI_MODELS = {
@@ -23,8 +23,6 @@ class HealthConfig:
             "model": "meta-llama/llama-3.1-8b-instruct:free",
             "keys": [
                 "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",
-                "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",
-                "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"
             ],
             "description": "Advanced Meta AI with healthcare intelligence"
         }
