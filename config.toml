@@ -1,14 +1,54 @@
-[theme]
-primaryColor = "#00d4ff"
-backgroundColor = "#0f0f23"
-secondaryBackgroundColor = "#1a1a2e"
-textColor = "#ffffff"
+[global]
+developmentMode = false
+showWarningOnDirectExecution = false
 
 [server]
-headless = true
+runOnSave = true
+port = 8501
 enableCORS = false
 enableXsrfProtection = false
 maxUploadSize = 200
+maxMessageSize = 200
+enableWebsocketCompression = true
+allowRunOnSave = true
 
 [browser]
 gatherUsageStats = false
+serverAddress = "0.0.0.0"
+serverPort = 8501
+
+[theme]
+primaryColor = "
+#00d4ff"
+backgroundColor = "
+#0a0a0f"
+secondaryBackgroundColor = "
+#1a1a2e"
+textColor = "
+#ffffff"
+font = "sans serif"
+
+[client]
+caching = true
+displayEnabled = true
+showErrorDetails = false
+toolbarMode = "minimal"
+
+[runner]
+magicEnabled = true
+installTracer = false
+fixMatplotlib = true
+postScriptGC = true
+fastReruns = true
+enforceSerializableSessionState = false
+
+[logger]
+level = "info"
+
+[deprecation]
+showfileUploaderEncoding = false
+showPyplotGlobalUse = false
+
+[ui]
+hideTopBar = false
+hideSidebarNav = false
