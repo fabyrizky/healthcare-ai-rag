@@ -23,11 +23,6 @@ class HealthConfig:
             "model": "qwen/qwq-32b-preview:free",
             "name": "🧠 Qwen QwQ 32B",
             "description": "Advanced reasoning AI for healthcare analysis"
-        },
-        "fallback": {
-            "model": "qwen/qwen-2.5-vl-72b-instruct:free",
-            "name": "🔍 Qwen 2.5 VL 72B",
-            "description": "Multimodal AI with visual understanding"
         }
     }
     
