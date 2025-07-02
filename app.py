@@ -10,8 +10,6 @@ import json
 import random
 import re
 
-warnings.filterwarnings('ignore')
-
 # Enhanced Configuration System
 class HealthConfig:
     APP_TITLE = "🏥 AGENTIC AI FOR HOSPITAL QUALITY SYSTEM"
