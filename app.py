@@ -15,7 +15,7 @@ warnings.filterwarnings('ignore')
 
 # Enhanced Configuration System
 class HealthConfig:
-    APP_TITLE = "🏥 AGENTIC AI FOR HOSPITAL QUALITY SYSTEM"
+    APP_TITLE = "AGENTIC AI FOR HOSPITAL QUALITY SYSTEM"
     APP_VERSION = "10.1.0"
     
     # Enhanced Feature Set
