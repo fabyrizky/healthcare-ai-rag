@@ -34,19 +34,19 @@ class HealthConfig:
     # Simplified AI Models
     AI_MODELS = {
         "expert": {
-            "name": "🧠 Healthcare Expert",
+            "name": "Healthcare Expert",
             "description": "Deep clinical analysis and strategic insights",
             "specialty": "Comprehensive healthcare analysis",
             "icon": "🧠"
         },
         "quick": {
-            "name": "⚡ Quick Assistant", 
+            "name": "Quick Assistant", 
             "description": "Rapid responses and quick guidance",
             "specialty": "Fast clinical decision support",
             "icon": "⚡"
         },
         "research": {
-            "name": "🔬 Research Analyst",
+            "name": "Research Analyst",
             "description": "Evidence-based research and analytics",
             "specialty": "Advanced research and analysis",
             "icon": "🔬"
@@ -381,7 +381,7 @@ def load_enhanced_css(theme_name):
         background: {theme['bg_secondary']}90;
         padding: 0.8rem;
         border-radius: 20px;
- microalgae-filter: blur(15px);
+        backdrop-filter: blur(15px);
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }}
     
@@ -968,7 +968,6 @@ def create_enhanced_visualizations(data, viz_type, x_col=None, y_col=None, color
         st.error(f"Visualization error: {str(e)}")
         return None
 
-@st.cache_data
 def create_comprehensive_sample_data():
     """Generate comprehensive healthcare dataset"""
     np.random.seed(42)
@@ -1184,7 +1183,6 @@ def main():
         
         # Enhanced quick questions
         st.markdown("#### ⚡ Popular Healthcare Questions")
-        st.markdown("Klik salah satu pertanyaan di bawah ini untuk mendapatkan jawaban cepat:")
         questions = [
             "What are WHO patient safety standards?",
             "How to improve HCAHPS scores?", 
@@ -1238,7 +1236,6 @@ For specific analysis methods like ANP/AHP or scenario planning, please explore 
         
         # Enhanced chat interface
         st.markdown("#### 💭 Ask Your Healthcare Question")
-        st.markdown("Masukkan pertanyaan Anda di bawah ini untuk mendapatkan jawaban khusus:")
         
         col1, col2 = st.columns([4, 1])
         with col1:
@@ -1317,7 +1314,6 @@ For detailed analysis, please use our specialized tools in the ANP Analysis, Sce
         # Enhanced chat history
         if st.session_state.chat_history:
             st.markdown("#### 📝 Conversation History")
-            st.markdown("Berikut adalah riwayat percakapan Anda (5 terakhir):")
             
             with st.container():
                 st.markdown('<div class="chat-container">', unsafe_allow_html=True)
@@ -1350,7 +1346,6 @@ For detailed analysis, please use our specialized tools in the ANP Analysis, Sce
         
         with col1:
             st.markdown("#### 🎯 Define Decision Problem")
-            st.markdown("Masukkan detail keputusan Anda di bawah ini untuk analisis ANP:")
             
             # ANP Configuration
             st.markdown("**Decision Goal:**")
@@ -1368,22 +1363,19 @@ For detailed analysis, please use our specialized tools in the ANP Analysis, Sce
                                             height=100)
             
             if st.button("🔄 Run ANP Analysis", use_container_width=True, type="primary"):
-                if goal and criteria_input and alternatives_input:
+                if criteria_input and alternatives_input:
                     criteria = [c.strip() for c in criteria_input.split(',') if c.strip()]
                     alternatives = [a.strip() for a in alternatives_input.split(',') if a.strip()]
                     
-                    if len(criteria) < 2 or len(alternatives) < 2:
-                        st.error("Masukkan setidaknya 2 kriteria dan 2 alternatif untuk analisis yang valid")
-                    else:
-                        with st.spinner("🧮 Performing ANP analysis..."):
-                            results = st.session_state.ai_manager.perform_anp_analysis(criteria, alternatives)
-                            st.session_state.anp_results = results
-                            time.sleep(1)  # Simulate processing
-                        
-                        st.success("✅ ANP Analysis completed!")
-                        st.rerun()
+                    with st.spinner("🧮 Performing ANP analysis..."):
+                        results = st.session_state.ai_manager.perform_anp_analysis(criteria, alternatives)
+                        st.session_state.anp_results = results
+                        time.sleep(1)  # Simulate processing
+                    
+                    st.success("✅ ANP Analysis completed!")
+                    st.rerun()
                 else:
-                    st.error("Harap isi semua kolom: Decision Goal, Criteria, dan Alternatives")
+                    st.error("Please enter both criteria and alternatives")
         
         with col2:
             st.markdown("#### 📊 ANP Analysis Results")
@@ -1424,24 +1416,24 @@ For detailed analysis, please use our specialized tools in the ANP Analysis, Sce
             elif st.session_state.anp_results and 'error' in st.session_state.anp_results:
                 st.error(st.session_state.anp_results['error'])
             else:
-                st.info("👆 Konfigurasikan analisis ANP Anda dan klik 'Run ANP Analysis' untuk melihat hasil")
+                st.info("👆 Configure your ANP analysis and click 'Run ANP Analysis' to see results")
                 
                 # Show ANP explanation
                 st.markdown("""
-                **🔍 Apa itu Analisis ANP?**
+                **🔍 What is ANP Analysis?**
                 
-                ANP (Analytic Network Process) adalah metode pengambilan keputusan lanjutan yang:
+                ANP (Analytic Network Process) is an advanced decision-making method that:
                 
-                • **Menangani Ketergantungan**: Menangkap hubungan antar kriteria
-                • **Menyertakan Umpan Balik**: Memungkinkan loop umpan balik dalam jaringan keputusan
-                • **Keputusan Kompleks**: Cocok untuk keputusan strategis di bidang kesehatan
-                • **Masukan Pemangku Kepentingan**: Menggabungkan berbagai perspektif
+                • **Handles Dependencies**: Captures relationships between criteria
+                • **Includes Feedback**: Allows feedback loops in decision networks
+                • **Complex Decisions**: Perfect for strategic healthcare decisions
+                • **Stakeholder Input**: Incorporates multiple perspectives
                 
-                **Kapan Menggunakan ANP:**
-                - Perencanaan strategis rumah sakit
-                - Keputusan investasi teknologi
-                - Prioritisasi peningkatan kualitas
-                - Alokasi sumber daya dengan ketergantungan
+                **When to Use ANP:**
+                - Hospital strategic planning
+                - Technology investment decisions
+                - Quality improvement prioritization
+                - Resource allocation with dependencies
                 """)
         
         st.markdown('</div>', unsafe_allow_html=True)
@@ -1455,7 +1447,6 @@ For detailed analysis, please use our specialized tools in the ANP Analysis, Sce
         
         with col1:
             st.markdown("#### 🎲 Scenario Configuration")
-            st.markdown("Atur parameter simulasi Anda di bawah ini:")
             
             # Scenario parameters
             scenario_type = st.selectbox(
@@ -1573,21 +1564,21 @@ For detailed analysis, please use our specialized tools in the ANP Analysis, Sce
             elif st.session_state.scenario_results and 'error' in st.session_state.scenario_results:
                 st.error(st.session_state.scenario_results['error'])
             else:
-                st.info("👆 Atur parameter skenario dan jalankan analisis untuk melihat hasil")
+                st.info("👆 Configure scenario parameters and run analysis to see results")
                 
                 st.markdown("""
-                **🔍 Manfaat Perencanaan Skenario Monte Carlo:**
+                **🔍 Monte Carlo Scenario Planning Benefits:**
                 
-                • **Kuantifikasi Risiko**: Memahami probabilitas berbagai hasil
-                • **Interval Kepercayaan**: Mengetahui rentang hasil yang mungkin
-                • **Dukungan Keputusan**: Membuat keputusan berdasarkan ketidakpastian
-                • **Perencanaan Sumber Daya**: Merencanakan berbagai skenario
+                • **Risk Quantification**: Understand probability of different outcomes
+                • **Confidence Intervals**: Know the range of likely results
+                • **Decision Support**: Make informed decisions under uncertainty
+                • **Resource Planning**: Plan for various scenarios
                 
-                **Aplikasi di Bidang Kesehatan:**
-                - Perencanaan kapasitas dan kebutuhan staf
-                - Peramalan anggaran dan manajemen biaya  
-                - Penetapan target peningkatan kualitas
-                - Manajemen risiko dan perencanaan kontingensi
+                **Healthcare Applications:**
+                - Capacity planning and staffing
+                - Budget forecasting and cost management  
+                - Quality improvement target setting
+                - Risk management and contingency planning
                 """)
         
         st.markdown('</div>', unsafe_allow_html=True)
@@ -1602,7 +1593,7 @@ For detailed analysis, please use our specialized tools in the ANP Analysis, Sce
         uploaded_file = st.file_uploader(
             "Upload Healthcare Dataset",
             type=['csv', 'xlsx', 'xls'],
-            help="Unggah data kesehatan Anda dalam format CSV atau Excel"
+            help="Upload your healthcare data in CSV or Excel format"
         )
         
         if uploaded_file:
@@ -1612,10 +1603,10 @@ For detailed analysis, please use our specialized tools in the ANP Analysis, Sce
                 else:
                     st.session_state.current_data = pd.read_excel(uploaded_file)
                 
-                st.success(f"✅ Berhasil memuat {len(st.session_state.current_data):,} catatan")
+                st.success(f"✅ Successfully loaded {len(st.session_state.current_data):,} records")
                 
             except Exception as e:
-                st.error(f"Kesalahan memuat file: {str(e)}")
+                st.error(f"Error loading file: {str(e)}")
         
         # Data analysis section
         if st.session_state.current_data is not None:
@@ -1623,15 +1614,14 @@ For detailed analysis, please use our specialized tools in the ANP Analysis, Sce
             
             # Multimodal analysis
             st.markdown("#### 🔬 Multimodal Data Analysis")
-            st.markdown("Klik tombol di bawah untuk menganalisis data Anda secara menyeluruh:")
             
             if st.button("🧮 Perform Comprehensive Analysis", use_container_width=True, type="primary"):
-                with st.spinner("🔍 Menganalisis data kesehatan multimodal..."):
+                with st.spinner("🔍 Analyzing multimodal healthcare data..."):
                     analysis = st.session_state.ai_manager.analyze_multimodal_data(data)
                     st.session_state.analysis_results = analysis
                     time.sleep(1)
                 
-                st.success("✅ Analisis multimodal selesai!")
+                st.success("✅ Multimodal analysis completed!")
                 st.rerun()
             
             # Display analysis results
@@ -1682,35 +1672,35 @@ For detailed analysis, please use our specialized tools in the ANP Analysis, Sce
                     
                     # Convert to readable format and display
                     if dept_data:
-                        st.write("Metrik kinerja berdasarkan departemen menunjukkan variasi signifikan yang dapat memandu upaya perbaikan yang ditargetkan.")
+                        st.write("Performance metrics by department show significant variations that can guide targeted improvement efforts.")
             
             # Data preview
             st.markdown("#### 👀 Data Preview")
-            with st.expander("Lihat Data Mentah", expanded=False):
+            with st.expander("View Raw Data", expanded=False):
                 st.dataframe(data.head(20), use_container_width=True)
                 
                 # Basic statistics
-                if st.checkbox("📈 Tampilkan Ringkasan Statistik"):
+                if st.checkbox("📈 Show Statistical Summary"):
                     numeric_cols = data.select_dtypes(include=[np.number]).columns
                     if len(numeric_cols) > 0:
-                        st.subheader("📊 Statistik Deskriptif")
+                        st.subheader("📊 Descriptive Statistics")
                         st.dataframe(data[numeric_cols].describe(), use_container_width=True)
         
         else:
-            st.info("📊 Unggah dataset kesehatan atau buat data sampel untuk memulai analisis komprehensif")
+            st.info("📊 Upload a healthcare dataset or generate sample data to begin comprehensive analysis")
             
             # Show analysis capabilities
             st.markdown("""
-            **🔬 Kemampuan Analitik Lanjutan:**
+            **🔬 Advanced Analytics Capabilities:**
             
-            • **Integrasi Multimodal**: Gabungkan data terstruktur dan tidak terstruktur
-            • **Analisis Statistik**: Statistik deskriptif dan inferensial yang komprehensif
-            • **Pengenalan Pola**: Identifikasi pola tersembunyi dalam data kesehatan
-            • **Analisis Korelasi**: Pahami hubungan antar variabel
-            • **Benchmarking Kinerja**: Bandingkan antar departemen dan periode waktu
-            • **Stratifikasi Risiko**: Identifikasi pasien dan skenario berisiko tinggi
-            • **Indikator Kualitas**: Lacak dan analisis metrik kinerja utama
-            • **Wawasan Prediktif**: Ramalkan tren dan hasil
+            • **Multimodal Integration**: Combine structured and unstructured data
+            • **Statistical Analysis**: Comprehensive descriptive and inferential statistics
+            • **Pattern Recognition**: Identify hidden patterns in healthcare data
+            • **Correlation Analysis**: Understand relationships between variables
+            • **Performance Benchmarking**: Compare across departments and time periods
+            • **Risk Stratification**: Identify high-risk patients and scenarios
+            • **Quality Indicators**: Track and analyze key performance metrics
+            • **Predictive Insights**: Forecast trends and outcomes
             """)
         
         st.markdown('</div>', unsafe_allow_html=True)
@@ -1773,7 +1763,7 @@ For detailed analysis, please use our specialized tools in the ANP Analysis, Sce
                     if fig:
                         st.plotly_chart(fig, use_container_width=True)
                     else:
-                        st.error("Tidak dapat membuat visualisasi dengan pengaturan saat ini")
+                        st.error("Unable to create visualization with current settings")
             
             # Additional visualization options
             st.markdown("#### 📊 Quick Visualizations")
@@ -1829,7 +1819,7 @@ For detailed analysis, please use our specialized tools in the ANP Analysis, Sce
                             (filtered_data['Age'] <= age_range[1])
                         ]
                 
-                st.write(f"📊 Dataset yang difilter: {len(filtered_data):,} catatan")
+                st.write(f"📊 Filtered dataset: {len(filtered_data):,} records")
                 
                 # Show filtered visualization
                 if len(filtered_data) > 0 and 'HCAHPS_Overall' in filtered_data.columns:
@@ -1838,28 +1828,28 @@ For detailed analysis, please use our specialized tools in the ANP Analysis, Sce
                         x='Age' if 'Age' in filtered_data.columns else filtered_data.columns[0],
                         y='HCAHPS_Overall',
                         color='Department' if 'Department' in filtered_data.columns else None,
-                        title="📊 Visualisasi Data yang Difilter",
+                        title="📊 Filtered Data Visualization",
                         size='Total_Cost' if 'Total_Cost' in filtered_data.columns else None
                     )
                     fig_filtered.update_layout(template="plotly_dark", height=500)
                     st.plotly_chart(fig_filtered, use_container_width=True)
         
         else:
-            st.info("📊 Buat atau unggah data untuk membuat visualisasi lanjutan")
+            st.info("📊 Generate or upload data to create advanced visualizations")
             
             # Show visualization gallery
             st.markdown("""
-            **🎨 Jenis Visualisasi yang Tersedia:**
+            **🎨 Available Visualization Types:**
             
-            • **🔥 Correlation Heatmap**: Memahami hubungan antar metrik
-            • **🏥 Department Performance**: Membandingkan kinerja antar departemen
-            • **🔮 3D Scatter Plots**: Menjelajahi hubungan multi-dimensi
-            • **📈 Time Series**: Melacak tren dan pola seiring waktu
-            • **🎯 Radar Charts**: Perbandingan kinerja multi-metrik
-            • **📊 Interactive Filters**: Eksplorasi data dinamis
-            • **🎛️ Custom Dashboards**: Membangun tampilan analitik yang dipersonalisasi
+            • **🔥 Correlation Heatmap**: Understand relationships between metrics
+            • **🏥 Department Performance**: Compare performance across departments
+            • **🔮 3D Scatter Plots**: Explore multi-dimensional relationships
+            • **📈 Time Series**: Track trends and patterns over time
+            • **🎯 Radar Charts**: Multi-metric performance comparison
+            • **📊 Interactive Filters**: Dynamic data exploration
+            • **🎛️ Custom Dashboards**: Build personalized analytics views
             
-            Semua visualisasi bersifat interaktif dan dapat diekspor untuk presentasi.
+            All visualizations are interactive and can be exported for presentations.
             """)
         
         st.markdown('</div>', unsafe_allow_html=True)
@@ -2087,20 +2077,20 @@ For detailed analysis, please use our specialized tools in the ANP Analysis, Sce
                 st.markdown(action)
         
         else:
-            st.info("📊 Buat atau unggah data untuk melihat dashboard kesehatan yang komprehensif")
+            st.info("📊 Generate or upload data to view the comprehensive healthcare dashboard")
             
             # Show dashboard preview
             st.markdown("""
-            **🌍 Fitur Dashboard Kesehatan Komprehensif:**
+            **🌍 Comprehensive Healthcare Dashboard Features:**
             
-            • **📊 KPI Real-time**: Pantau indikator kinerja utama
-            • **🌍 Pelacakan Kepatuhan**: Tinjauan kepatuhan standar global
-            • **🏥 Analisis Departemen**: Perbandingan kinerja antar unit
-            • **😊 Sentimen Pasien**: Analisis umpan balik dan tren
-            • **📈 Pemantauan Tren**: Lacak kinerja seiring waktu
-            • **🎯 Item Aksi**: Rekomendasi perbaikan berbasis data
-            • **📋 Ringkasan Eksekutif**: Tinjauan kinerja tingkat tinggi
-            • **🔍 Analisis Mendalam**: Kemampuan investigasi terperinci
+            • **📊 Real-time KPIs**: Monitor key performance indicators
+            • **🌍 Compliance Tracking**: Global standards compliance overview
+            • **🏥 Department Analysis**: Performance comparison across units
+            • **😊 Patient Sentiment**: Feedback analysis and trends
+            • **📈 Trend Monitoring**: Track performance over time
+            • **🎯 Action Items**: Data-driven improvement recommendations
+            • **📋 Executive Summary**: High-level performance overview
+            • **🔍 Drill-down Analysis**: Detailed investigation capabilities
             """)
         
         st.markdown('</div>', unsafe_allow_html=True)
@@ -2126,14 +2116,14 @@ if __name__ == "__main__":
         main()
     except Exception as e:
         st.error(f"🔧 Application Error: {str(e)}")
-        st.info("Silakan segarkan halaman untuk memulai ulang aplikasi")
+        st.info("Please refresh the page to restart the application")
         
         # Emergency reset
         if st.button("🔄 Emergency Reset Application"):
             for key in list(st.session_state.keys()):
                 del st.session_state[key]
-            st.success("✅ Aplikasi berhasil direset!")
-            st.info("Silakan segarkan halaman untuk memulai ulang dengan keadaan bersih")
+            st.success("✅ Application reset successfully!")
+            st.info("Please refresh the page to restart with clean state")
 
 # ============================================================================
 # HEALTHCARE AI RAG APPLICATION v10.1.0 - ENHANCED ANALYTICS SUITE
@@ -2185,4 +2175,4 @@ if __name__ == "__main__":
 # File Size: Optimized for fast deployment
 # Dependencies: Minimal standard libraries only
 # Performance: Optimized for 300+ patient records
-# ============================================================================
+# ============================================================================ '
